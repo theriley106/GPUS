@@ -21,7 +21,6 @@ if  __name__ == "__main__":
 
 	 try:
 			 gpsp.start()
-
 			 while True:
 					 #x =  + "," +  + "\n"
 					 #print(x)
@@ -32,7 +31,7 @@ if  __name__ == "__main__":
 					 print res.text
 					 time.sleep(1)
 
-	 except(KeyboardInterrupt,SystemExit):
+	 except:
 			 #f.close()
 			 gpsp.running = False
 			 gpsp.join()
