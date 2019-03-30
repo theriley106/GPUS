@@ -1,3 +1,44 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset='utf-8' />
+    <title>Display a map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .info { position:absolute; bottom: 0%; padding: 1.5em; }
+        .info > p { display: inline-block;}
+    </style>
+</head>
+<body>
 
+<div id='map'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYXl1c2hwZXRpZ2FyYTMiLCJhIjoiY2p0dXUwaHFyMXFiNDN5bXN1MXA5bzZzdyJ9.UGOwEHrZgNBlaaE7vPCeQw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
+        center: [-84.39, 33.75], // starting position [lng, lat]
+        zoom: 15 // starting zoom
+    });
+</script>
+    <div class="container-fluid">
+        <div class="col-12 bg-dark text-center text-white info">
+            <p>Score: </p> 
+            <p>Latitude: </p>
+            <p>Longitude: </p>
+        </div>
+    </div>
+
+
+
+
+</body>
 </html>
