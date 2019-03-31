@@ -3,6 +3,7 @@ from gps import *
 import time
 import threading
 import requests
+import os
 
 gpsd = None
 class GpsPoller(threading.Thread):
@@ -16,6 +17,7 @@ class GpsPoller(threading.Thread):
 			 global gpsd
 			 while gpsp.running:
 					 gpsd.next()
+
 if  __name__ == "__main__":
 	 gpsp=GpsPoller()
 
@@ -28,7 +30,7 @@ if  __name__ == "__main__":
 					 url = "https://us-central1-hackathon-180117.cloudfunctions.net/function-1?long={}&lat={}".format(int(float(gpsd.fix.longitude)), int(float(gpsd.fix.latitude)))
 					 print url
 					 res = requests.get(url)
-					 print res.text
+					 os.system("echo {} > file.txt".format(len(res.json())))
 					 time.sleep(1)
 
 	 except:
