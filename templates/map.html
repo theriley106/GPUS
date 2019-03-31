@@ -12,6 +12,7 @@
 
         <style>
             body { margin:0; padding:0; }
+            .danger-zone { position: absolute; top: 0; bottom: 0; width: 100%; background-color: red; opacity: 0.2; }
             #map { position:absolute; top:0; bottom:0; width:100%; z-index: 1; }
             .info { position:absolute; bottom: 0%; z-index: 2; }
             .info > p { display: inline-block; }
@@ -21,6 +22,7 @@
 
     <div class="container-fluid">
         <div id='map'></div>
+        <div class="danger-zone"></div>
         <div class="col bg-dark text-center text-white info p-2">
             <p>Score: </p><p id="score"></p>
             <p>Latitude: </p><p id="lat"></p>
@@ -63,6 +65,18 @@
             document.getElementById('lng').innerHTML = obj.lng;
             document.getElementById('score').innerHTML = obj.score;
        };
+    </script>
+
+    <script type="text/javascript">
+      var set_danger_zone = function(score) {
+        var danger_zone = document.getElementsByClassName('danger-zone');
+        if (score > 70) {
+          danger_zone.style.zIndex = "2";
+        }
+        else {
+          danger_zone.style.zIndex = "0";
+        }
+      };
     </script>
 
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
