@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>GPUS</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+        <style>
+            body { margin:0; padding:0; }
+            .danger-zone { position: absolute; top: 0; bottom: 0; width: 100%; background-color: red; opacity: 0.2; }
+            #map { position:absolute; top:0; bottom:0; width:100%; z-index: 1; }
+            .info { position:absolute; bottom: 0%; z-index: 2; }
+            .info > p { display: inline-block; }
+        </style>
+    </head>
+<body>
+
+    <div class="container-fluid">
+        <div id='map'></div>
+        <div class="danger-zone"></div>
+        <div class="col bg-dark text-center text-white info p-2">
+            <p>Score: </p><p id="score"></p>
+            <p>Latitude: </p><p id="lat"></p>
+            <p>Longitude: </p><p id="lng"></p>
+        </div>
+    </div>
+
+
+    <script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoiYXl1c2hwZXRpZ2FyYTMiLCJhIjoiY2p0dXUwaHFyMXFiNDN5bXN1MXA5bzZzdyJ9.UGOwEHrZgNBlaaE7vPCeQw';
+        var map = L.mapbox.map('map')
+            .setView([33.7490, -84.38803], 12)
+            .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/dark-v10'));
+
+        var marker = L.marker([33.7490, -84.38803], {
+            icon: L.mapbox.marker.icon({
+                'marker-symbol': 'circle',
+                'marker-color': '#999999'
+            })
+        }).addTo(map);
+
+
+    </script>
+
+    <script type="text/javascript">
+       var ws = new WebSocket("ws://localhost:8000/echo");
+       ws.onopen = function() {
+           ws.send("socket open");
+       };
+       ws.onclose = function(evt) {
+           alert("socket closed");
+       };
+       ws.onmessage = function(evt) {
+            var obj = JSON.parse(evt.data);
+            console.log(obj);
+            var newLatLng = new L.LatLng(obj.lat, obj.lng);
+            map.panTo(new L.LatLng(obj.lat, obj.lng));
+            marker.setLatLng(newLatLng);
+            document.getElementById('lat').innerHTML = obj.lat;
+            document.getElementById('lng').innerHTML = obj.lng;
+            document.getElementById('score').innerHTML = obj.score;
+       };
+    </script>
+
+    <script type="text/javascript">
+      var set_danger_zone = function(score) {
+        var danger_zone = document.getElementsByClassName('danger-zone');
+        if (score > 70) {
+          danger_zone.style.zIndex = "2";
+        }
+        else {
+          danger_zone.style.zIndex = "0";
+        }
+      };
+    </script>
+
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
