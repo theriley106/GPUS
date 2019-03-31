@@ -11,7 +11,7 @@
     <title>GPUS</title>
   </head>
   <body>
-      <div class="container">
+      <div class="container p-5">
             <div id="my-login-button-target"></div>
             <script>
                window.snapKitInit = function () {
@@ -19,7 +19,8 @@
                 // Mount Login Button
                 snap.loginkit.mountButton(loginButtonIconId, {
                   clientId: '973e9c61-0328-4da7-a585-c3f5f3c7ab13',
-                  redirectURI: 'https://localhost:8000/map.html',
+                  // redirect uri
+                  redirectURI: '',
                   scopeList: [
                     'user.display_name',
                     'user.bitmoji.avatar',
