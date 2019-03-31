@@ -1,6 +1,10 @@
 from time import sleep
 import serial
 import os
+import requests
+
+
+
 
 ser = serial.Serial("/dev/ttyACM1",9600)
 count = 0
@@ -13,6 +17,8 @@ while True:
 		count += 1
 	if count > 8:
 		print("CRASH DETECTED")
-		message = """GPUS Report - Motion Detected In Vehicle"""
-		os.system("lib messagebird.sms.create --recipient 18646097067 --body {}".format(message))
+		res = requests.get("/currentPosition")
+		x = res.json()
+		message = """GPUS Report - Accident Detected in Nathan's Vehicle at {} {}.  Emergency vehicles have been dispatched""".format(x['lat'], x['lng'])
+		os.system("lib messagebird.sms.create --recipient 18645674106 --body {}".format(message))
 	print(getVal)

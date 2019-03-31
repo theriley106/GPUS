@@ -11,38 +11,13 @@
     <title>GPUS</title>
   </head>
   <body>
-      <div class="container p-5">
-            <div id="my-login-button-target"></div>
-            <script>
-               window.snapKitInit = function () {
-                var loginButtonIconId = 'my-login-button-target';
-                // Mount Login Button
-                snap.loginkit.mountButton(loginButtonIconId, {
-                  clientId: '973e9c61-0328-4da7-a585-c3f5f3c7ab13',
-                  // redirect uri
-                  redirectURI: 'https://guardianangels.herokuapp.com/auth',
-                  scopeList: [
-                    'user.display_name',
-                    'user.bitmoji.avatar',
-                  ],
-                  handleResponseCallback: function() {
-                    snap.loginkit.fetchUserInfo()
-                      .then(data => console.log('User info:', data));
-                  },
-                });
-              };
-
-              // Load the SDK asynchronously
-              (function (d, s, id) {
-                var js, sjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "https://sdk.snapkit.com/js/v1/login.js";
-                sjs.parentNode.insertBefore(js, sjs);
-              }(document, 'script', 'loginkit-sdk'));
-            </script>
-      </div>
-
+  <center>
+  <h2>GP<i>US</i></h2>
+  <h3>Using Historical Vehicle Crash Data to Make Traveling Safer</h3>
+  </center>
+      <center><img style="height:300px;width:300px" src="static/frame.png"></img></center>
+      <br>
+      <center><h5>Scan the QR Code Above to Get Started</h5></center>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

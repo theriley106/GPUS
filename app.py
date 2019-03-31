@@ -12,7 +12,9 @@ FILE_INFO = "data.json"
 def index():
 	return render_template("index.html")
 
-
+@app.route('/currentPosition', methods=["GET"])
+def get_current():
+	return jsonify(json.load(open("data.jsson")))
 
 @sockets.route('/echo')
 def echo_socket(ws):

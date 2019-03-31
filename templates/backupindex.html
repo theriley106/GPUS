@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>GPUS</title>
+  </head>
+  <body>
+      <div class="container p-5">
+            <div id="my-login-button-target"></div>
+            <script>
+               window.snapKitInit = function () {
+                var loginButtonIconId = 'my-login-button-target';
+                // Mount Login Button
+                snap.loginkit.mountButton(loginButtonIconId, {
+                  clientId: '973e9c61-0328-4da7-a585-c3f5f3c7ab13',
+                  // redirect uri
+                  redirectURI: 'https://guardianangels.herokuapp.com/auth',
+                  scopeList: [
+                    'user.display_name',
+                    'user.bitmoji.avatar',
+                  ],
+                  handleResponseCallback: function() {
+                    snap.loginkit.fetchUserInfo()
+                      .then(data => console.log('User info:', data));
+                  },
+                });
+              };
+
+              // Load the SDK asynchronously
+              (function (d, s, id) {
+                var js, sjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://sdk.snapkit.com/js/v1/login.js";
+                sjs.parentNode.insertBefore(js, sjs);
+              }(document, 'script', 'loginkit-sdk'));
+            </script>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
