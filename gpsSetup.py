@@ -37,9 +37,13 @@ if  __name__ == "__main__":
 						 data = {"lat": float(lat), 'lng': float(lng), 'score': len(res.json())}
 						 with open('data.json', 'w') as outfile:
 							json.dump(data, outfile)
-						 time.sleep(1)
-					 except:
-					 	 pass
+						 time.sleep(.1)
+					 except Exception as exp:
+					 	 a = json.load(open("data.json"))
+					 	 a['score'] = 100
+						 with open('data.json', 'w') as outfile:
+							json.dump(a, outfile)
+						 time.sleep(5)
 
 	 except:
 			 #f.close()
