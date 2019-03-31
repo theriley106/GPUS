@@ -2,10 +2,11 @@ from flask import Flask, render_template, request, url_for, redirect, Markup, js
 from flask_sockets import Sockets
 import datetime
 import time
+import json
 
 app = Flask(__name__, static_url_path='/static')
 sockets = Sockets(app)
-FILE_INFO = "file.txt"
+FILE_INFO = "data.json"
 
 @app.route('/', methods=['GET'])
 def index():
@@ -18,7 +19,11 @@ def echo_socket(ws):
 	while True:
 		try:
 			#message = ws.receive()
-			ws.send(open(FILE_INFO).read())
+			try:
+				x = json.load(open(FILE_INFO))
+			except:
+				x = {}
+			ws.send(json.dumps(x))
 			time.sleep(.1)
 		except Exception as exp:
 			print exp

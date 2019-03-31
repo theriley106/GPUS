@@ -3,6 +3,7 @@ from gps import *
 import time
 import threading
 import requests
+import json
 import os
 
 gpsd = None
@@ -24,16 +25,24 @@ if  __name__ == "__main__":
 	 try:
 			 gpsp.start()
 			 while True:
-					 #x =  + "," +  + "\n"
-					 #print(x)
-					 #f.write(x)
-					 url = "https://us-central1-hackathon-180117.cloudfunctions.net/function-1?long={}&lat={}".format(int(float(gpsd.fix.longitude)), int(float(gpsd.fix.latitude)))
-					 print url
-					 res = requests.get(url)
-					 os.system("echo {} > file.txt".format(len(res.json())))
-					 time.sleep(1)
+			 		 try:
+						 #x =  + "," +  + "\n"
+						 #print(x)
+						 #f.write(x)
+						 lng = gpsd.fix.longitude
+						 lat = gpsd.fix.latitude
+						 url = "https://us-central1-hackathon-180117.cloudfunctions.net/function-1?long={}&lat={}".format(float(lng), float(lat))
+						 print url
+						 res = requests.get(url)
+						 data = {"lat": float(lat), 'lng': float(lng), 'score': len(res.json())}
+						 with open('data.json', 'w') as outfile:
+							json.dump(data, outfile)
+						 time.sleep(1)
+					 except:
+					 	 pass
 
 	 except:
 			 #f.close()
 			 gpsp.running = False
 			 gpsp.join()
+
